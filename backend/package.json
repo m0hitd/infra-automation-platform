@@ -1,0 +1,19 @@
+{
+  "name": "infra-automation-backend",
+  "version": "1.0.0",
+  "description": "Backend API for Infrastructure Automation Platform",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "npm install && node app.js"
+  },
+  "keywords": ["terraform", "gcp", "infrastructure", "automation"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "body-parser": "^1.20.2"
+  }
+}

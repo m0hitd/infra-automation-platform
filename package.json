@@ -1,0 +1,32 @@
+{
+  "name": "infra-automation-platform",
+  "version": "1.0.0",
+  "description": "Production-ready Infrastructure Automation Platform using Terraform and GCP",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "install-all": "npm install && npm install --prefix backend && npm install --prefix frontend",
+    "start:backend": "npm start --prefix backend",
+    "start:frontend": "npm start --prefix frontend",
+    "start": "echo 'Run start:backend and start:frontend in separate terminals'",
+    "build:backend": "npm run build --prefix backend 2>/dev/null || echo 'No build script for backend'",
+    "build:frontend": "npm run build --prefix frontend",
+    "build": "npm run build:backend && npm run build:frontend",
+    "terraform:init": "cd terraform && terraform init -backend=false",
+    "terraform:plan": "cd terraform && terraform plan -var-file='environments/dev/terraform.tfvars'",
+    "terraform:validate": "cd terraform && terraform validate",
+    "setup": "npm install && npm run terraform:init"
+  },
+  "keywords": [
+    "terraform",
+    "gcp",
+    "infrastructure",
+    "automation",
+    "iac"
+  ],
+  "author": "",
+  "license": "MIT"
+}
