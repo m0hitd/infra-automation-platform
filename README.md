@@ -148,6 +148,10 @@ terraform plan -var-file="environments/dev/terraform.tfvars"
 ![Terraform Plan](assets/terraform-plan.png)
 *Terraform execution showing infrastructure changes*
 
+### CI/CD Email Notification
+![CI/CD Email](assets/ci-cd-email.jpeg)
+*Automated email confirmation of deployment pipeline execution*
+
 ## 📚 API Endpoints
 
 ### Health Check
