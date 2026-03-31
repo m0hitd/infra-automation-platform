@@ -141,7 +141,7 @@ terraform plan -var-file="environments/dev/terraform.tfvars"
 *Simple form to provision new virtual machines*
 
 ### VM Zones
-![Success](assets/ui-success.jpeg)
+![Success](assets/ui-successs.jpeg)
 *Real-time zones of infrastructure provisioning*
 
 <<<<<<< HEAD
@@ -151,8 +151,12 @@ terraform plan -var-file="environments/dev/terraform.tfvars"
 
 =======
 ### CI/CD Email Alert
+<<<<<<< HEAD
 ![Success](assets/cicd-email.jpeg)
 >>>>>>> daa7270cabe9d538241b66a3b212b616276b26e5
+=======
+![Working](assets/cicd-email.jpeg)
+>>>>>>> 20a5b7345d8f2e7749c7f9f64c99683f7b996c5b
 ## 📚 API Endpoints
 
 ### Health Check
