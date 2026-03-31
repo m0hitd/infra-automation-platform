@@ -137,21 +137,22 @@ terraform plan -var-file="environments/dev/terraform.tfvars"
 *Modern, intuitive dashboard for infrastructure management*
 
 ### VM Creation Form
-![VM Creation](assets/ui-input.png)
+![VM Creation](assets/ui-input.jpeg)
 *Simple form to provision new virtual machines*
 
-### Success Response
-![Success](assets/ui-success.png)
-*Real-time confirmation of infrastructure provisioning*
+### VM Zones
+![Success](assets/ui-success.jpeg)
+*Real-time zones of infrastructure provisioning*
 
-### Terraform Planning
-![Terraform Plan](assets/terraform-plan.png)
-*Terraform execution showing infrastructure changes*
-
+<<<<<<< HEAD
 ### CI/CD Email Notification
 ![CI/CD Email](assets/ci-cd-email.jpeg)
 *Automated email confirmation of deployment pipeline execution*
 
+=======
+### CI/CD Email Alert
+![Success](assets/cicd-email.jpeg)
+>>>>>>> daa7270cabe9d538241b66a3b212b616276b26e5
 ## 📚 API Endpoints
 
 ### Health Check
