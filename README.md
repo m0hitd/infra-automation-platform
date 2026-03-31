@@ -447,8 +447,8 @@ This project is licensed under the MIT License - see [LICENSE](LICENSE) file for
 ## 👤 Author
 
 **Your Name**
-- GitHub: [@yourusername](https://github.com/yourusername)
-- Portfolio: [your-portfolio.com](https://your-portfolio.com)
+- GitHub: [@m0hitd](https://github.com/m0hitd)
+- LinkedIn: [m0hitdebnath](https://www.linkedin.com/in/m0hitdebnath/)
 
 ## 🎯 Resume Impact
 
@@ -480,7 +480,7 @@ This project demonstrates:
 - [API Documentation](docs/api.md)
 - [Deployment Guide](docs/deployment.md)
 - [Troubleshooting](docs/troubleshooting.md)
-- [GitHub Issues](https://github.com/yourusername/infra-automation-platform/issues)
+- [GitHub Issues](https://github.com/m0hitd/infra-automation-platform/issues)
 
 ## ⭐ Show Your Support
 
@@ -488,5 +488,5 @@ If you found this project helpful, please consider giving it a star! It helps ot
 
 ---
 
-**Last Updated**: March 2024
-**Status**: Production Ready ✅
+**Last Updated**: March 2026
+**Status**: Production Ready ✅\ The deployment pipeline is fully ready. I’ve validated everything locally including Terraform execution and API integration. I’m currently waiting for billing activation to run it on GCP.
