@@ -11,27 +11,6 @@ function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [filterStatus, setFilterStatus] = useState("all");
 
-  // Check API health on mount
-  useEffect(() => {
-    checkApiHealth();
-    const interval = setInterval(checkApiHealth, 30000); // Check every 30 seconds
-    return () => clearInterval(interval);
-  }, []);
-
-  const checkApiHealth = async () => {
-    try {
-      const response = await fetch("http://localhost:3000/health");
-      if (response.ok) {
-        setApiStatus("online");
-        fetchRequests();
-      } else {
-        setApiStatus("offline");
-      }
-    } catch (error) {
-      setApiStatus("offline");
-    }
-  };
-
   const fetchRequests = async () => {
     try {
       const response = await fetch("http://localhost:3000/requests");
@@ -43,6 +22,27 @@ function App() {
       console.error("Failed to fetch requests:", error);
     }
   };
+
+  // Check API health on mount
+  useEffect(() => {
+    const checkApiHealth = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/health");
+        if (response.ok) {
+          setApiStatus("online");
+          fetchRequests();
+        } else {
+          setApiStatus("offline");
+        }
+      } catch (error) {
+        setApiStatus("offline");
+      }
+    };
+
+    checkApiHealth();
+    const interval = setInterval(checkApiHealth, 30000); // Check every 30 seconds
+    return () => clearInterval(interval);
+  }, []);
 
   const handleVMCreated = (newRequest) => {
     setRequests([...requests, newRequest]);
