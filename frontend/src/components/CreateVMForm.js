@@ -5,10 +5,35 @@ function CreateVMForm({ onVMCreated, apiStatus }) {
     vmName: "",
     machineType: "e2-micro",
     zone: "asia-south1-a",
+    image: "debian-11",
   });
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState(null);
   const [response, setResponse] = useState(null);
+  const [errors, setErrors] = useState({});
+
+  const machineTypes = [
+    { value: "e2-micro", label: "e2-micro (0.5-2 vCPU, 1GB RAM)" },
+    { value: "e2-small", label: "e2-small (0.5-2 vCPU, 2GB RAM)" },
+    { value: "e2-medium", label: "e2-medium (1-2 vCPU, 4GB RAM)" },
+    { value: "n1-standard-1", label: "n1-standard-1 (1 vCPU, 3.75GB RAM)" },
+    { value: "n1-standard-4", label: "n1-standard-4 (4 vCPU, 15GB RAM)" },
+  ];
+
+  const zones = [
+    { value: "asia-south1-a", label: "asia-south1-a (Delhi)" },
+    { value: "us-central1-a", label: "us-central1-a (Iowa)" },
+    { value: "europe-west1-b", label: "europe-west1-b (Belgium)" },
+    { value: "asia-east1-a", label: "asia-east1-a (Taiwan)" },
+  ];
+
+  const images = [
+    { value: "debian-11", label: "Debian 11" },
+    { value: "ubuntu-2204", label: "Ubuntu 22.04 LTS" },
+    { value: "ubuntu-2004", label: "Ubuntu 20.04 LTS" },
+    { value: "centos-8", label: "CentOS 8" },
+    { value: "windows-2019", label: "Windows Server 2019" },
+  ];
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -16,13 +41,31 @@ function CreateVMForm({ onVMCreated, apiStatus }) {
       ...prev,
       [name]: value,
     }));
+    if (errors[name]) {
+      setErrors((prev) => ({
+        ...prev,
+        [name]: "",
+      }));
+    }
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+    
+    if (!formData.vmName.trim()) {
+      newErrors.vmName = "VM name is required";
+    } else if (!/^[a-z0-9-]{1,63}$/.test(formData.vmName)) {
+      newErrors.vmName = "VM name must contain only lowercase letters, numbers, and hyphens";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!formData.vmName.trim()) {
-      setStatus({ type: "error", message: "VM name is required" });
+    if (!validateForm()) {
       return;
     }
 
@@ -47,6 +90,7 @@ function CreateVMForm({ onVMCreated, apiStatus }) {
           vmName: formData.vmName,
           machineType: formData.machineType,
           zone: formData.zone,
+          image: formData.image,
         }),
       });
 
@@ -55,7 +99,7 @@ function CreateVMForm({ onVMCreated, apiStatus }) {
       if (response.ok) {
         setStatus({
           type: "success",
-          message: data.message,
+          message: "VM created successfully! Check your GCP console to verify.",
         });
         setResponse(data);
         onVMCreated(data);
@@ -63,6 +107,7 @@ function CreateVMForm({ onVMCreated, apiStatus }) {
           vmName: "",
           machineType: "e2-micro",
           zone: "asia-south1-a",
+          image: "debian-11",
         });
       } else {
         setStatus({
@@ -82,60 +127,106 @@ function CreateVMForm({ onVMCreated, apiStatus }) {
 
   return (
     <div className="create-vm-form">
-      <h2>📦 Create Virtual Machine</h2>
+      <h2>Create Virtual Machine</h2>
       <p className="form-description">
-        Fill in the details below to provision a new VM on Google Cloud Platform
+        Configure and provision a new virtual machine on Google Cloud Platform
       </p>
 
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="vmName">VM Name *</label>
+          <label htmlFor="vmName">
+            VM Name <span className="required">*</span>
+          </label>
           <input
-            id="vmName"
             type="text"
+            id="vmName"
             name="vmName"
             value={formData.vmName}
             onChange={handleInputChange}
-            placeholder="e.g., my-server, web-app-vm"
-            disabled={loading}
-            required
+            placeholder="e.g., my-app-server"
+            className={errors.vmName ? "error" : ""}
           />
-          <small>Must contain only letters, numbers, and hyphens</small>
+          {errors.vmName && <small className="error-text">{errors.vmName}</small>}
+          <small>Lowercase letters, numbers, and hyphens only</small>
+        </div>
+
+        <div className="form-row">
+          <div className="form-group">
+            <label htmlFor="machineType">
+              Machine Type <span className="required">*</span>
+            </label>
+            <select
+              id="machineType"
+              name="machineType"
+              value={formData.machineType}
+              onChange={handleInputChange}
+            >
+              {machineTypes.map((type) => (
+                <option key={type.value} value={type.value}>
+                  {type.label}
+                </option>
+              ))}
+            </select>
+            <small>Choose based on your workload requirements</small>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="zone">
+              Zone <span className="required">*</span>
+            </label>
+            <select
+              id="zone"
+              name="zone"
+              value={formData.zone}
+              onChange={handleInputChange}
+            >
+              {zones.map((zone) => (
+                <option key={zone.value} value={zone.value}>
+                  {zone.label}
+                </option>
+              ))}
+            </select>
+            <small>Select the geographic region for your VM</small>
+          </div>
         </div>
 
         <div className="form-group">
-          <label htmlFor="machineType">Machine Type</label>
+          <label htmlFor="image">
+            Operating System <span className="required">*</span>
+          </label>
           <select
-            id="machineType"
-            name="machineType"
-            value={formData.machineType}
+            id="image"
+            name="image"
+            value={formData.image}
             onChange={handleInputChange}
-            disabled={loading}
           >
-            <option value="e2-micro">e2-micro (0.25-2 vCPU)</option>
-            <option value="e2-small">e2-small (0.5-2 vCPU)</option>
-            <option value="e2-medium">e2-medium (1-2 vCPU)</option>
-            <option value="e2-standard-2">e2-standard-2 (2 vCPU)</option>
-            <option value="e2-standard-4">e2-standard-4 (4 vCPU)</option>
+            {images.map((img) => (
+              <option key={img.value} value={img.value}>
+                {img.label}
+              </option>
+            ))}
           </select>
+          <small>Choose the OS image for your VM</small>
         </div>
 
-        <div className="form-group">
-          <label htmlFor="zone">Zone</label>
-          <select
-            id="zone"
-            name="zone"
-            value={formData.zone}
-            onChange={handleInputChange}
-            disabled={loading}
-          >
-            <option value="asia-south1-a">asia-south1-a (Delhi)</option>
-            <option value="asia-south1-b">asia-south1-b (Delhi)</option>
-            <option value="asia-south1-c">asia-south1-c (Delhi)</option>
-            <option value="us-central1-a">us-central1-a (Iowa)</option>
-            <option value="us-west1-b">us-west1-b (Oregon)</option>
-            <option value="europe-west1-b">europe-west1-b (Belgium)</option>
-          </select>
+        <div className="form-preview">
+          <h4>Configuration Summary</h4>
+          <div className="preview-item">
+            <span className="preview-label">VM Name:</span>
+            <span className="preview-value">{formData.vmName || "Not set"}</span>
+          </div>
+          <div className="preview-item">
+            <span className="preview-label">Machine Type:</span>
+            <span className="preview-value">{machineTypes.find(t => t.value === formData.machineType)?.label}</span>
+          </div>
+          <div className="preview-item">
+            <span className="preview-label">Zone:</span>
+            <span className="preview-value">{zones.find(z => z.value === formData.zone)?.label}</span>
+          </div>
+          <div className="preview-item">
+            <span className="preview-label">OS Image:</span>
+            <span className="preview-value">{images.find(i => i.value === formData.image)?.label}</span>
+          </div>
         </div>
 
         <div className="button-group">
@@ -144,44 +235,58 @@ function CreateVMForm({ onVMCreated, apiStatus }) {
             className="submit-button"
             disabled={loading || apiStatus !== "online"}
           >
-            {loading ? "🔄 Creating..." : "✨ Create VM"}
+            {loading ? "Creating VM..." : "Create VM"}
           </button>
         </div>
-      </form>
 
-      {status && (
-        <div className={`status-message ${status.type}`}>
-          <strong>{status.type === "success" ? "✅ Success" : "❌ Error"}:</strong> {status.message}
-        </div>
-      )}
+        {status && (
+          <div className={`status-message ${status.type}`}>
+            {status.type === "success" && "✓ "}
+            {status.type === "error" && "✕ "}
+            {status.message}
+          </div>
+        )}
 
-      {response && status?.type === "success" && (
-        <div className="response-details">
-          <h3>📋 Request Details</h3>
-          <div className="details-grid">
-            <div className="detail-item">
-              <span className="detail-label">Request ID:</span>
-              <span className="detail-value">{response.requestId}</span>
+        {response && status?.type === "success" && (
+          <div className="response-details">
+            <h3>VM Created Successfully</h3>
+            <div className="details-grid">
+              <div className="detail-item">
+                <span className="detail-label">Request ID:</span>
+                <span className="detail-value">{response.requestId}</span>
+              </div>
+              <div className="detail-item">
+                <span className="detail-label">VM Name:</span>
+                <span className="detail-value">{response.vmName}</span>
+              </div>
+              <div className="detail-item">
+                <span className="detail-label">Status:</span>
+                <span className="detail-value">{response.status}</span>
+              </div>
+              <div className="detail-item">
+                <span className="detail-label">Zone:</span>
+                <span className="detail-value">{response.zone}</span>
+              </div>
+              <div className="detail-item">
+                <span className="detail-label">Machine Type:</span>
+                <span className="detail-value">{response.machineType}</span>
+              </div>
+              <div className="detail-item">
+                <span className="detail-label">Timestamp:</span>
+                <span className="detail-value">{new Date(response.timestamp).toLocaleString()}</span>
+              </div>
             </div>
-            <div className="detail-item">
-              <span className="detail-label">VM Name:</span>
-              <span className="detail-value">{response.details.vmName}</span>
-            </div>
-            <div className="detail-item">
-              <span className="detail-label">Machine Type:</span>
-              <span className="detail-value">{response.details.machineType}</span>
-            </div>
-            <div className="detail-item">
-              <span className="detail-label">Zone:</span>
-              <span className="detail-value">{response.details.zone}</span>
-            </div>
-            <div className="detail-item">
-              <span className="detail-label">Estimated Time:</span>
-              <span className="detail-value">{response.details.estimatedDeploymentTime}</span>
+            <div className="next-steps">
+              <p><strong>Next Steps:</strong></p>
+              <ul>
+                <li>Visit your <a href="https://console.cloud.google.com/compute/instances" target="_blank" rel="noopener noreferrer">GCP Console</a> to verify the VM</li>
+                <li>Configure firewall rules if needed</li>
+                <li>Connect via SSH: <code>gcloud compute ssh {response.vmName} --zone={response.zone}</code></li>
+              </ul>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </form>
     </div>
   );
 }

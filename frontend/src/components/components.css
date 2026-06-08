@@ -2,44 +2,36 @@
 
 .create-vm-form,
 .requests-section {
-  animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  animation: none;
 }
 
 .form-description {
   color: #666;
   margin-bottom: 30px;
-  font-size: 1.05rem;
+  font-size: 1rem;
+  line-height: 1.6;
 }
 
 .form-group small {
   display: block;
   margin-top: 5px;
   color: #999;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
 }
 
 .response-details {
   margin-top: 30px;
   padding: 20px;
-  background: #f0f7ff;
-  border-left: 4px solid #667eea;
-  border-radius: 8px;
+  background: #f5f5f5;
+  border-left: 3px solid #333;
+  border-radius: 0;
 }
 
 .response-details h3 {
-  color: #667eea;
+  color: #1a1a1a;
   margin-top: 0;
+  font-size: 1rem;
+  font-weight: 600;
 }
 
 .details-grid {
@@ -62,13 +54,14 @@
 }
 
 .detail-value {
-  color: #667eea;
-  font-family: monospace;
+  color: #333;
+  font-family: 'Courier New', monospace;
   padding: 8px;
   background: white;
-  border-radius: 4px;
-  border: 1px solid #e0e0e0;
+  border-radius: 0;
+  border: 1px solid #d0d0d0;
   word-break: break-all;
+  font-size: 0.85rem;
 }
 
 .request-info {
@@ -78,46 +71,50 @@
 }
 
 .request-name {
-  font-size: 1.15rem;
+  font-size: 1rem;
   font-weight: 600;
-  color: #333;
+  color: #1a1a1a;
 }
 
 .request-detail {
   margin-top: 8px;
   padding: 8px;
   background: white;
-  border-radius: 4px;
-  font-size: 0.9rem;
+  border-radius: 0;
+  font-size: 0.85rem;
+  border: 1px solid #d0d0d0;
 }
 
 .request-detail code {
   background: #f5f5f5;
   padding: 2px 6px;
-  border-radius: 3px;
-  color: #667eea;
-  font-family: monospace;
+  border-radius: 0;
+  color: #333;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
 }
 
 .request-error {
   margin-top: 10px;
   padding: 10px;
-  background: #ffebee;
-  border-left: 3px solid #f44336;
-  border-radius: 4px;
-  color: #c62828;
-  font-size: 0.9rem;
+  background: #f5f5f5;
+  border-left: 3px solid #6b0000;
+  border-radius: 0;
+  color: #6b0000;
+  font-size: 0.85rem;
 }
 
 .requests-stats {
   margin-top: 40px;
   padding-top: 30px;
-  border-top: 2px solid #f0f0f0;
+  border-top: 1px solid #d0d0d0;
 }
 
 .requests-stats h3 {
   margin-top: 0;
-  color: #333;
+  color: #1a1a1a;
+  font-size: 1rem;
+  font-weight: 600;
 }
 
 .stats-grid {
@@ -130,22 +127,23 @@
 .stat-item {
   text-align: center;
   padding: 20px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 8px;
-  color: white;
+  background: #f5f5f5;
+  border-radius: 0;
+  color: #1a1a1a;
+  border: 1px solid #d0d0d0;
 }
 
 .stat-number {
   display: block;
   font-size: 2rem;
-  font-weight: bold;
+  font-weight: 600;
   margin-bottom: 10px;
 }
 
 .stat-label {
   display: block;
-  font-size: 0.95rem;
-  opacity: 0.9;
+  font-size: 0.9rem;
+  color: #666;
 }
 
 /* Responsive adjustments */
