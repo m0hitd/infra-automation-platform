@@ -272,27 +272,23 @@ machine_type = "e2-micro"
 
 ### Key Security Features
 
-✅ **No Hardcoded Credentials**
+ **No Hardcoded Credentials**
 - All secrets via environment variables
 - Service account authentication
 
-✅ **Input Validation**
+ **Input Validation**
 - All API inputs validated
 - Terraform variable constraints
 
-✅ **Network Security**
+ **Network Security**
 - VPC for resource isolation
 - Firewall rules with least privilege
 - HTTPS for all communications
 
-✅ **Audit Logging**
+ **Audit Logging**
 - All operations logged
 - Terraform state versioning
 - Request tracking
-
-✅ **Least Privilege Access**
-- Minimal IAM roles
-- Service account separation
 
 For detailed security documentation, see [docs/security.md](docs/security.md)
 
@@ -342,54 +338,7 @@ gcloud services enable cloudbuild.googleapis.com
 gcloud services enable run.googleapis.com
 ```
 
-## 📊 Monitoring
-
-### View Logs
-
-**Backend Logs**:
-```bash
-gcloud logging read "resource.type=cloud_run_revision" \
-  --limit 50 \
-  --format json
-```
-
-**Terraform Logs**:
-```bash
-terraform show
-terraform state list
-```
-
-## 🧪 Testing
-
-### Manual Testing
-
-```bash
-# Test API health
-curl http://localhost:3000/health
-
-# Test VM creation
-curl -X POST http://localhost:3000/create-vm \
-  -H "Content-Type: application/json" \
-  -d '{
-    "vmName": "test-vm",
-    "machineType": "e2-micro",
-    "zone": "asia-south1-a"
-  }'
-
-# View requests
-curl http://localhost:3000/requests
-```
-
-### Terraform Testing
-
-```bash
-cd terraform
-terraform fmt          # Format code
-terraform validate     # Validate configuration
-terraform plan        # Show what will change
-```
-
-## 📈 Future Enhancements
+### 📈 Future Enhancements
 
 - [ ] **Multi-Cloud Support**: AWS and Azure providers
 - [ ] **Database Management**: Automated DB provisioning
@@ -420,13 +369,6 @@ terraform plan        # Show what will change
 - **Testing**: Test modules independently
 - **Scaling**: Easy to add new resources
 
-## 📚 Documentation
-
-- [Architecture Overview](docs/architecture.md) - System design and components
-- [Methodology](docs/methodology.md) - Development approach and best practices
-- [Workflow Documentation](docs/workflow.md) - User interactions and data flow
-- [Security Guide](docs/security.md) - Security implementation and checklist
-
 ## ⚙️ Technologies Used
 
 | Component | Technology | Purpose |
@@ -439,50 +381,6 @@ terraform plan        # Show what will change
 | Deployment | Cloud Run | Serverless Backend |
 | Versioning | Git | Code Management |
 
-## 🤝 Contributing
-
-Contributions are welcome! Please:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see [LICENSE](LICENSE) file for details.
-
-## 👤 Author
-
-**Your Name**
-- GitHub: [@m0hitd](https://github.com/m0hitd)
-- LinkedIn: [m0hitdebnath](https://www.linkedin.com/in/m0hitdebnath/)
-
-## 🎯 Resume Impact
-
-This project demonstrates:
-
-✅ **Cloud Engineering Skills**
-- GCP expertise and best practices
-- Terraform Infrastructure as Code
-- Multi-tier architecture design
-
-✅ **DevOps Capabilities**
-- CI/CD pipeline understanding
-- Infrastructure automation
-- Deployment and scaling
-
-✅ **Software Engineering**
-- Full-stack development (frontend + backend)
-- REST API design
-- Modular code structure
-
-✅ **Production Readiness**
-- Security-first design
-- Error handling and validation
-- Comprehensive documentation
-- Scalable architecture
 
 ## 🔗 Quick Links
 
