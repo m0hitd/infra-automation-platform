@@ -382,13 +382,6 @@ gcloud services enable run.googleapis.com
 | Versioning | Git | Code Management |
 
 
-## 🔗 Quick Links
-
-- [API Documentation](docs/api.md)
-- [Deployment Guide](docs/deployment.md)
-- [Troubleshooting](docs/troubleshooting.md)
-- [GitHub Issues](https://github.com/m0hitd/infra-automation-platform/issues)
-
 ## ⭐ Show Your Support
 
 If you found this project helpful, please consider giving it a star! It helps others discover the project.
